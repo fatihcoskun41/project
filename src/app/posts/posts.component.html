@@ -1,0 +1,56 @@
+<nz-table>
+  <thead>
+    <tr>
+      <th>businessId</th>
+      <th>businessName</th>
+      <th>title</th>
+      <th>pictureUrl</th>
+      <th>sessionDate</th>
+      <th>listPrice</th>
+      <th>discountedPrice</th>
+      <th>description</th>
+      <th>number of people</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of posts;let i=index">
+      <td>{{data.businessId}}</td>
+      <td>{{data.businessName}}</td>
+      <td>{{data.title}}</td>
+      <td>
+        <img nz-image width="200px" height="200px"
+          nzSrc="https://previews.123rf.com/images/corund/corund1309/corund130900177/22106111-piano-keys.jpg" alt="" />
+      </td>
+      <td>{{data.sessionDate |date}}</td>
+      <td>{{data.listPrice |currency}}</td>
+      <td>{{data.discountedPrice |currency}}</td>
+      <td>{{data.description}}</td>
+      <td>{{formitems.quantity}}</td>
+      <td><button nz-button [nzType]="'primary'" (click)="showModal(data.businessId)"><span>Katılımcıları Düzenle</span></button>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="{{i}}" (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk(formitems)">
+          <ng-container *nzModalContent>
+
+            <form nz-form >
+
+
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="quantity">Quantity</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                  <input [(ngModel)]="formitems.quantity" nz-input name="email"id="quantity">
+                </nz-form-control>
+              </nz-form-item >
+              <nz-form-item>
+              <textarea [(ngModel)]="formitems.description" [ngModelOptions]="{standalone: true}" nz-input placeholder="Controlled autosize" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+            </nz-form-item>
+            </form>
+          </ng-container>
+
+
+
+        </nz-modal>
+      </td>
+
+    </tr>
+  </tbody>
+</nz-table>
